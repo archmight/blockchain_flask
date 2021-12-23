@@ -261,11 +261,11 @@
 * для майнинга нового блока сервером
 * для получения блокчейна
 
-#%% md
+
 
 ### /transactions/new
 
-#%%
+
 
 
     @app.route('/transactions/new', methods=['POST'])
