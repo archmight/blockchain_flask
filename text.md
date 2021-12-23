@@ -52,23 +52,23 @@
 
 #%%
 
-def new_transaction(self, sender, recipient, amount):
-    """
-    Направляет новую транзакцию в следующий блок
+    def new_transaction(self, sender, recipient, amount):
+        """
+        Направляет новую транзакцию в следующий блок
 
-    :param sender: <str> Адрес отправителя
-    :param recipient: <str> Адрес получателя
-    :param amount: <int> Сумма
-    :return: <int> Индекс блока, который будет хранить эту транзакцию
-    """
+        :param sender: <str> Адрес отправителя
+        :param recipient: <str> Адрес получателя
+        :param amount: <int> Сумма
+        :return: <int> Индекс блока, который будет хранить эту транзакцию
+        """
 
-    self.current_transactions.append({
-        'sender': sender,
-        'recipient': recipient,
-        'amount': amount,
-    })
+        self.current_transactions.append({
+            'sender': sender,
+            'recipient': recipient,
+            'amount': amount,
+        })
 
-    return self.last_block['index'] + 1
+        return self.last_block['index'] + 1
 
 
 #%% md
@@ -81,30 +81,30 @@ def new_transaction(self, sender, recipient, amount):
 
 #%%
 
-from time import time
+    from time import time
 
-def new_block(self, proof, previous_hash=None):
-    """
-    Создание нового блока в блокчейне
+    def new_block(self, proof, previous_hash=None):
+        """
+        Создание нового блока в блокчейне
 
-    :param proof: <int> Доказательства проведенной работы
-    :param previous_hash: (Опционально) хеш предыдущего блока
-    :return: <dict> Новый блок
-    """
+        :param proof: <int> Доказательства проведенной работы
+        :param previous_hash: (Опционально) хеш предыдущего блока
+        :return: <dict> Новый блок
+        """
 
-    block = {
-        'index': len(self.chain) + 1,
-        'timestamp': time(),
-        'transactions': self.current_transactions,
-        'proof': proof,
-        'previous_hash': previous_hash or self.hash(self.chain[-1]),
-    }
+        block = {
+            'index': len(self.chain) + 1,
+            'timestamp': time(),
+            'transactions': self.current_transactions,
+            'proof': proof,
+            'previous_hash': previous_hash or self.hash(self.chain[-1]),
+        }
 
-    # Перезагрузка текущего списка транзакций
-    self.current_transactions = []
+        # Перезагрузка текущего списка транзакций
+        self.current_transactions = []
 
-    self.chain.append(block)
-    return block
+        self.chain.append(block)
+        return block
 
 
 #%% md
@@ -118,20 +118,20 @@ def new_block(self, proof, previous_hash=None):
 
 #%%
 
-import json
-import hashlib
-@staticmethod
-def hash(block):
-    """
-    Создает хэш SHA-256 блока
+    import json
+    import hashlib
+    @staticmethod
+    def hash(block):
+        """
+        Создает хэш SHA-256 блока
 
-    :param block: <dict> Блок
-    :return: <str>
-    """
+        :param block: <dict> Блок
+        :return: <str>
+        """
 
-    # Мы должны убедиться в том, что словарь упорядочен, иначе у нас будут непоследовательные хеши
-    block_string = json.dumps(block, sort_keys=True).encode()
-    return hashlib.sha256(block_string).hexdigest()
+        # Мы должны убедиться в том, что словарь упорядочен, иначе у нас будут непоследовательные хеши
+        block_string = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(block_string).hexdigest()
 
 #%% md
 
@@ -140,19 +140,19 @@ def hash(block):
 #%%
 
 ### Структура блока
-block = {
-    'index': 1,
-    'timestamp': 1506057125.900785,
-    'transactions': [
-        {
-            'sender': "8527147fe1f5426f9dd545de4b27ee00",
-            'recipient': "a77f5cdfa2934df3954a5c7c7da5df1f",
-            'amount': 5,
-        }
-    ],
-    'proof': 324984774000,
-    'previous_hash': "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
-}
+    block = {
+        'index': 1,
+        'timestamp': 1506057125.900785,
+        'transactions': [
+            {
+                'sender': "8527147fe1f5426f9dd545de4b27ee00",
+                'recipient': "a77f5cdfa2934df3954a5c7c7da5df1f",
+                'amount': 5,
+            }
+        ],
+        'proof': 324984774000,
+        'previous_hash': "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+    }
 
 #%% md
 
@@ -173,11 +173,7 @@ block = {
 
 #%%
 
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-img = mpimg.imread('img.png')
-imgplot = plt.imshow(img)
-plt.show()
+
 
 #%% md
 
@@ -185,7 +181,7 @@ plt.show()
 
 #%% md
 
-
+![изображение](https://user-images.githubusercontent.com/35964960/147289142-9d465d93-ee85-4ab4-8f42-51bae514dba6.png)
 
 #%% md
 
@@ -208,45 +204,45 @@ plt.show()
 
 #%%
 
-import hashlib
-import json
+    import hashlib
+    import json
 
-from time import time
-from uuid import uuid4
+    from time import time
+    from uuid import uuid4
 
 
-class Blockchain(object):
-    ...
-        
-    def proof_of_work(self, last_proof):
-        """
-        Простая проверка алгоритма:
-         - Поиска числа p`, так как hash(pp`) содержит 4 заглавных нуля, где p - предыдущий
-         - p является предыдущим доказательством, а p` - новым
+    class Blockchain(object):
+        ...
 
-        :param last_proof: <int>
-        :return: <int>
-        """
+        def proof_of_work(self, last_proof):
+            """
+            Простая проверка алгоритма:
+             - Поиска числа p`, так как hash(pp`) содержит 4 заглавных нуля, где p - предыдущий
+             - p является предыдущим доказательством, а p` - новым
 
-        proof = 0
-        while self.valid_proof(last_proof, proof) is False:
-            proof += 1
+            :param last_proof: <int>
+            :return: <int>
+            """
 
-        return proof
+            proof = 0
+            while self.valid_proof(last_proof, proof) is False:
+                proof += 1
 
-    @staticmethod
-    def valid_proof(last_proof, proof):
-        """
-        Подтверждение доказательства: Содержит ли hash(last_proof, proof) 4 заглавных нуля?
+            return proof
 
-        :param last_proof: <int> Предыдущее доказательство
-        :param proof: <int> Текущее доказательство
-        :return: <bool> True, если правильно, False, если нет.
-        """
+        @staticmethod
+        def valid_proof(last_proof, proof):
+            """
+            Подтверждение доказательства: Содержит ли hash(last_proof, proof) 4 заглавных нуля?
 
-        guess = f'{last_proof}{proof}'.encode()
-        guess_hash = hashlib.sha256(guess).hexdigest()
-        return guess_hash[:4] == "0000"
+            :param last_proof: <int> Предыдущее доказательство
+            :param proof: <int> Текущее доказательство
+            :return: <bool> True, если правильно, False, если нет.
+            """
+
+            guess = f'{last_proof}{proof}'.encode()
+            guess_hash = hashlib.sha256(guess).hexdigest()
+            return guess_hash[:4] == "0000"
 
 #%% md
 
@@ -278,20 +274,20 @@ class Blockchain(object):
 #%%
 
 
-@app.route('/transactions/new', methods=['POST'])
-def new_transaction():
-    values = request.get_json()
+    @app.route('/transactions/new', methods=['POST'])
+    def new_transaction():
+        values = request.get_json()
 
-    # Убедитесь в том, что необходимые поля находятся среди POST-данных
-    required = ['sender', 'recipient', 'amount']
-    if not all(k in values for k in required):
-        return 'Missing values', 400
+        # Убедитесь в том, что необходимые поля находятся среди POST-данных
+        required = ['sender', 'recipient', 'amount']
+        if not all(k in values for k in required):
+            return 'Missing values', 400
 
-    # Создание новой транзакции
-    index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
+        # Создание новой транзакции
+        index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
 
-    response = {'message': f'Transaction will be added to Block {index}'}
-    return jsonify(response), 201
+        response = {'message': f'Transaction will be added to Block {index}'}
+        return jsonify(response), 201
 
 #%% md
 
@@ -299,33 +295,33 @@ def new_transaction():
 
 #%%
 
-@app.route('/mine', methods=['GET'])
-def mine():
-    # Мы запускаем алгоритм подтверждения работы, чтобы получить следующее подтверждение…
-    last_block = blockchain.last_block
-    last_proof = last_block['proof']
-    proof = blockchain.proof_of_work(last_proof)
+    @app.route('/mine', methods=['GET'])
+    def mine():
+        # Мы запускаем алгоритм подтверждения работы, чтобы получить следующее подтверждение…
+        last_block = blockchain.last_block
+        last_proof = last_block['proof']
+        proof = blockchain.proof_of_work(last_proof)
 
-    # Мы должны получить вознаграждение за найденное подтверждение
-    # Отправитель “0” означает, что узел заработал крипто-монету
-    blockchain.new_transaction(
-        sender="0",
-        recipient=node_identifier,
-        amount=1,
-    )
+        # Мы должны получить вознаграждение за найденное подтверждение
+        # Отправитель “0” означает, что узел заработал крипто-монету
+        blockchain.new_transaction(
+            sender="0",
+            recipient=node_identifier,
+            amount=1,
+        )
 
-    # Создаем новый блок, путем внесения его в цепь
-    previous_hash = blockchain.hash(last_block)
-    block = blockchain.new_block(proof, previous_hash)
+        # Создаем новый блок, путем внесения его в цепь
+        previous_hash = blockchain.hash(last_block)
+        block = blockchain.new_block(proof, previous_hash)
 
-    response = {
-        'message': "New Block Forged",
-        'index': block['index'],
-        'transactions': block['transactions'],
-        'proof': block['proof'],
-        'previous_hash': block['previous_hash'],
-    }
-    return jsonify(response), 200
+        response = {
+            'message': "New Block Forged",
+            'index': block['index'],
+            'transactions': block['transactions'],
+            'proof': block['proof'],
+            'previous_hash': block['previous_hash'],
+        }
+        return jsonify(response), 200
 
 
 #%% md
@@ -334,10 +330,10 @@ def mine():
 
 #%%
 
-@app.route('/chain', methods=['GET'])
-def full_chain():
-    response = {
-        'chain': blockchain.chain,
-        'length': len(blockchain.chain),
-    }
-    return jsonify(response), 200
+    @app.route('/chain', methods=['GET'])
+    def full_chain():
+        response = {
+            'chain': blockchain.chain,
+            'length': len(blockchain.chain),
+        }
+        return jsonify(response), 200
